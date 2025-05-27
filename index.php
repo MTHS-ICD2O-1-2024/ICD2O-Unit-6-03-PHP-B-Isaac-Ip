@@ -32,14 +32,8 @@
       </div>
       <div class="page-content">Press the button to get the current temperature:</div>
       <br>
-      <form action="#">
-        <!-- Accent-colored raised button with ripple -->
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-          type="submit">
-          Get Weather
-        </button>
-      </form>
-     <?php
+      <?php
+      // OpenWeatherMap API URL
       $apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=45.4211435&lon=-75.6900574&appid=fe1d80e1e103cff8c6afd190cad23fa5";
 
       // Fetch the weather data
@@ -50,6 +44,7 @@
         echo "<div class='page-content'>Sorry, an error has occurred. Please try again later.</div>";
         return;
       }
+
       $jsonData = json_decode($resultJSON, true);
 
       // Process
