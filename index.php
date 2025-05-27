@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-indigo.min.css" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -28,33 +28,44 @@
     </header>
     <main class="mdl-layout__content">
       <div class="right-image">
-        <img src="./images/temp.png" alt="Temperature" width="95%" height="auto">
+        <img src="./images/temp.png" alt="Temperature">
       </div>
       <div class="page-content">Press the button to get the current temperature:</div>
-      <br />
-      <!-- Simple Textfield for integers-->
-      <!-- Accent-colored raised button with ripple -->
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-        onclick="getTemperature()">
-        Get Current Weather
-      </button>
-      <br />
-      <script>
-        async function getTemperature() {
-          const resultJSON = await fetch(
-            "https://api.openweathermap.org/data/2.5/weather?lat=45.4211435&lon=-75.6900574&appid=fe1d80e1e103cff8c6afd190cad23fa5"
-          );
-          const jsonData = await resultJSON.json();
-          console.log(jsonData);
-          const weatherDescription = jsonData.weather[0].description;
-          const weatherIconId = jsonData.weather[0].icon;
-          const weatherIconUrl = "https://openweathermap.org/img/wn/" + weatherIconId + "@2x.png";
-          const currentWeatherInKelvin = jsonData.main.temp;
-          const currentWeatherInCelcius = currentWeatherInKelvin - 273.15;
-          // You can display the results on the page here
-          echo("Current weather: " + weatherDescription + ", " + currentWeatherInCelcius.toFixed(0) + "°C." + weatherIconUrl + "");
-        }
-      </script>
+      <br>
+      <form action="#">
+        <!-- Accent-colored raised button with ripple -->
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+          type="submit">
+          Get Weather
+        </button>
+      </form>
+     <?php
+      $apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=45.4211435&lon=-75.6900574&appid=fe1d80e1e103cff8c6afd190cad23fa5";
+
+      // Fetch the weather data
+      $resultJSON = file_get_contents($apiUrl);
+
+      if ($resultJSON === FALSE) {
+        // If data fetch fails
+        echo "<div class='page-content'>Sorry, an error has occurred. Please try again later.</div>";
+        return;
+      }
+      $jsonData = json_decode($resultJSON, true);
+
+      // Process
+      $weatherDescription = $jsonData['weather'][0]['description'];
+      $weatherIconId = $jsonData['weather'][0]['icon'];
+      $weatherIconUrl = "https://openweathermap.org/img/wn/" . $weatherIconId . "@2x.png";
+      $currentWeatherKelvin = $jsonData['main']['temp'];
+      $currentWeatherCelcius = $currentWeatherKelvin - 273.15;
+
+      // Output
+      echo "<div class='page-content'>";
+      echo "<p>The current temperature is " . round($currentWeatherCelcius) . "°C.</p>";
+      echo "<p>The current weather is " . $weatherDescription . ".</p>";
+      echo "<img src='" . $weatherIconUrl . "' alt='Weather Icon'>";
+      echo "</div>";
+      ?>
   </div>
   </main>
   </div>
