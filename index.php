@@ -30,7 +30,7 @@
       <div class="right-image">
         <img src="./images/temp.png" alt="Temperature">
       </div>
-      <div class="page-content">Press the button to get the current temperature:</div>
+      <div class="page-content">This is the current temperature:</div>
       <br>
       <?php
       // OpenWeatherMap API URL
