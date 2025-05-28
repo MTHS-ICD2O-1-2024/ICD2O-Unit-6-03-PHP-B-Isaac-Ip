@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="description" content="API & JSON" />
   <meta name="keywords" content="mths, ics2o" />
-  <meta name="author" content="Mr. Coxall" />
+  <meta name="author" content="Isaac Ip" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
